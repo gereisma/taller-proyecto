@@ -2,7 +2,7 @@ package uy.edu.cei.taller.bean;
 
 public class UsuarioBean {
 
-	private int id;
+	private long id;
 	private String nombreUsuario;
 	private String email;
 	private String contraseña;
@@ -14,7 +14,17 @@ public class UsuarioBean {
 	private String connId;
 	private Boolean isEliminado;
 
-	public int getId() {
+	private RolBean rol;
+
+	public RolBean getRol() {
+		return rol;
+	}
+
+	public void setRol(RolBean rol) {
+		this.rol = rol;
+	}
+
+	public long getId() {
 		return id;
 	}
 

@@ -1,40 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
 <mapper namespace="uy.edu.cei.taller.dao.UsuarioMapper">
 
-	<select id="selectAll"
-		resultType="uy.edu.cei.taller.bean.UsuarioBean">
+	<resultMap id="OneUsuarioMap"
+		type="uy.edu.cei.taller.bean.UsuarioBean">
+		<id property="id" column="id" />
+		<result property="nombreUsuario" column="nombreUsuario" />
+		<result property="email" column="email" />
+		<result property="ubicacion" column="ubicacion" />
+		<result property="activo" column="activo" />
+		<result property="idRol" column="idRol" />
+		<result property="valoracion" column="valoracion" />
+		<result property="verificado" column="verificado" />
+		<result property="connId" column="connId" />
+		<result property="isEliminado" column="isEliminado" />
+
+		<association property="rol"
+			javaType="uy.edu.cei.taller.bean.RolBean">
+			<id property="id" column="id" />
+			<result property="rol" column="rol" />
+			<collection property="permisos" column="idRol"
+				ofType="uy.edu.cei.taller.bean.PermisoBean"
+				select="selectPermisosByIdRol" />
+		</association>
+
+	</resultMap>
+
+	<select id="selectAll" resultType="uy.edu.cei.taller.bean.UsuarioBean">
 		SELECT * FROM USUARIOS
 	</select>
 
-	<select id="selectByNombreUsuario"
-		resultType="uy.edu.cei.taller.bean.UsuarioBean">
-		SELECT * FROM USUARIOS WHERE nombreUsuario=#{nombreUsuario}
+	<select id="selectByNombreUsuario"	resultMap="OneUsuarioMap">
+		SELECT * FROM USUARIOS u
+		inner join ROLES r on u.idRol =	r.id
+		left join DETALLESROLES d on r.id =	d.idRol
+		left join PERMISOS p on	p.id = d.idPermiso 
+		WHERE nombreUsuario=#{nombreUsuario}
 	</select>
-	
-	<select id="selectById"
-		resultType="uy.edu.cei.taller.bean.UsuarioBean">
-		SELECT * FROM USUARIOS WHERE id=#{id}
+
+	<select id="selectById" resultMap="OneUsuarioMap">
+	SELECT * FROM USUARIOS u
+	inner join ROLES r on u.idRol = r.id
+	left join DETALLESROLES d on r.id = d.idRol
+	left join PERMISOS p on p.id = d.idPermiso
+	WHERE id=#{id}
 	</select>
+
+	<select id="selectPermisosByIdRol"
+		resultType="uy.edu.cei.taller.bean.PermisoBean">
+		SELECT * from PERMISOS p where p.id in (SELECT d.idPermiso
+		FROM DETALLESROLES d WHERE d.idRol = #{id})
+	</select>
+
 
 	<insert id="insert">
 		insert into USUARIOS
 		(nombreUsuario,contraseña,email,idRol,verificado)
 		values
-			<if test="usuario.verificado!=null">
+		<if test="usuario.verificado!=null">
 			(#{usuario.nombreUsuario},#{usuario.contraseña},#{usuario.email},#{usuario.idRol},#{usuario.verificado})
-			</if>
-			<if test="usuario.verificado==null">
+		</if>
+		<if test="usuario.verificado==null">
 			(#{usuario.nombreUsuario},#{usuario.contraseña},#{usuario.email},#{usuario.idRol},false)
-			</if>
-		
+		</if>
+
 	</insert>
 
 
 	<update id="updateByIdOrNombreUsuario">
 		UPDATE USUARIOS
 		<set>
-			<if test="usuario.nombreUsuario!=null and usuario.nombreUsuario!='' ">
+			<if
+				test="usuario.nombreUsuario!=null and usuario.nombreUsuario!='' ">
 				nombreUsuario = #{usuario.nombreUsuario},
 			</if>
 			<if test="usuario.contraseña!=null and usuario.contraseña!='' ">

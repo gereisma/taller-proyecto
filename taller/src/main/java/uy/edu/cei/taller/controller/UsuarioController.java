@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+//import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import uy.edu.cei.taller.bean.UsuarioBean;
@@ -36,7 +38,12 @@ public class UsuarioController {
 	public UsuarioBean getByNombreUsuario(@PathVariable String nombreUsuario) {
 		return this.usuarioMapper.selectByNombreUsuario(nombreUsuario);
 	}
-
+	
+	@GetMapping("id") // ?nameStartWith={name}
+	public UsuarioBean getById(@RequestParam(value = "id",required = true) long id) {
+		return this.usuarioMapper.selectById(id);
+	}
+	
 	@PostMapping
 	public void save(@RequestBody UsuarioBean usuario) {
 		this.usuarioMapper.insert(usuario);

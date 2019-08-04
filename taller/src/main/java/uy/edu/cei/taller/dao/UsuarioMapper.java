@@ -12,7 +12,7 @@ public interface UsuarioMapper {
 
 	public List<UsuarioBean> selectAll();
 	public UsuarioBean selectByNombreUsuario(@Param("nombreUsuario") String nombreUsuario);
-	public UsuarioBean selectById(@Param("id") int id);
+	public UsuarioBean selectById(@Param("id") long id);
 	public void insert(@Param("usuario") UsuarioBean usuario);
 	public void updateByIdOrNombreUsuario(@Param("usuario") UsuarioBean usuario);
 	public void deleteById(@Param("id") int id);	
