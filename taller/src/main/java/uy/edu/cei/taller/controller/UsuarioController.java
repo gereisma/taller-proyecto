@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-//import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import uy.edu.cei.taller.bean.UsuarioBean;
 import uy.edu.cei.taller.dao.UsuarioMapper;
 
@@ -39,11 +37,16 @@ public class UsuarioController {
 		return this.usuarioMapper.selectByNombreUsuario(nombreUsuario);
 	}
 	
-	@GetMapping("id") // ?nameStartWith={name}
-	public UsuarioBean getById(@RequestParam(value = "id",required = true) long id) {
+//	@GetMapping("findByName") 
+//	public List<UsuarioBean> selectIfNameStartWith(@RequestParam(value = "nameStartWith", required = true) String nombreUsuario) {
+//		return this.usuarioMapper.selectIfNameStartWith(nombreUsuario);
+//	}
+
+	@GetMapping("id")
+	public UsuarioBean getById(@RequestParam(value = "id", required = true) long id) {
 		return this.usuarioMapper.selectById(id);
 	}
-	
+
 	@PostMapping
 	public void save(@RequestBody UsuarioBean usuario) {
 		this.usuarioMapper.insert(usuario);
@@ -53,14 +56,10 @@ public class UsuarioController {
 	public void updateById(@RequestBody UsuarioBean usuario) {
 		this.usuarioMapper.updateByIdOrNombreUsuario(usuario);
 	}
-	
+
 	@DeleteMapping("/{nombreUsuario}")
 	public void de(@PathVariable String nombreUsuario) {
 		this.usuarioMapper.deleteByNombreUsuario(nombreUsuario);
 	}
-	
-	
-	
-	
-	
+
 }

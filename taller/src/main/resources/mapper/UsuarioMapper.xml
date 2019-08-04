@@ -27,24 +27,31 @@
 
 	</resultMap>
 
-	<select id="selectAll" resultType="uy.edu.cei.taller.bean.UsuarioBean">
+	<select id="selectAll"
+		resultType="uy.edu.cei.taller.bean.UsuarioBean">
 		SELECT * FROM USUARIOS
 	</select>
 
-	<select id="selectByNombreUsuario"	resultMap="OneUsuarioMap">
-		SELECT * FROM USUARIOS u
-		inner join ROLES r on u.idRol =	r.id
-		left join DETALLESROLES d on r.id =	d.idRol
-		left join PERMISOS p on	p.id = d.idPermiso 
+	<select id="selectIfNameStartWith" resultType="uy.edu.cei.taller.bean.UsuarioBean">
+		SELECT * FROM USUARIOS WHERE LIKE '%'|| #{nombreUsuario} ||'%'
+	</select>
+	
+	<select id="selectByNombreUsuario" resultMap="OneUsuarioMap">
+		SELECT * FROM
+		USUARIOS u
+		inner join ROLES r on u.idRol = r.id
+		left join DETALLESROLES
+		d on r.id = d.idRol
+		left join PERMISOS p on p.id = d.idPermiso
 		WHERE nombreUsuario=#{nombreUsuario}
 	</select>
 
 	<select id="selectById" resultMap="OneUsuarioMap">
-	SELECT * FROM USUARIOS u
-	inner join ROLES r on u.idRol = r.id
-	left join DETALLESROLES d on r.id = d.idRol
-	left join PERMISOS p on p.id = d.idPermiso
-	WHERE id=#{id}
+		SELECT * FROM USUARIOS u
+		inner join ROLES r on u.idRol = r.id
+		left join DETALLESROLES d on r.id = d.idRol
+		left join PERMISOS p on p.id = d.idPermiso
+		WHERE id=#{id}
 	</select>
 
 	<select id="selectPermisosByIdRol"
