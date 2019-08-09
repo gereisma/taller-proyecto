@@ -12,6 +12,7 @@ public interface UsuarioMapper {
 
 	public List<UsuarioBean> selectAll();
 	public UsuarioBean selectByNombreUsuario(@Param("nombreUsuario") String nombreUsuario);
+	public List<UsuarioBean> selectIfNameStartWith(@Param("nombreUsuario") String nombreUsuario);
 	public UsuarioBean selectById(@Param("id") long id);
 	public void insert(@Param("usuario") UsuarioBean usuario);
 	public void updateByIdOrNombreUsuario(@Param("usuario") UsuarioBean usuario);

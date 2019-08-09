@@ -36,6 +36,11 @@ public class UsuarioController {
 	public UsuarioBean getByNombreUsuario(@PathVariable String nombreUsuario) {
 		return this.usuarioMapper.selectByNombreUsuario(nombreUsuario);
 	}
+	
+//	@GetMapping("findByName") 
+//	public List<UsuarioBean> selectIfNameStartWith(@RequestParam(value = "nameStartWith", required = true) String nombreUsuario) {
+//		return this.usuarioMapper.selectIfNameStartWith(nombreUsuario);
+//	}
 
 	@GetMapping("id")
 	public UsuarioBean getById(@RequestParam(value = "id", required = true) long id) {

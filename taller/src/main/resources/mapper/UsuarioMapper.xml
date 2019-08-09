@@ -31,6 +31,10 @@
 		resultType="uy.edu.cei.taller.bean.UsuarioBean">
 		SELECT * FROM USUARIOS
 	</select>
+
+	<select id="selectIfNameStartWith" resultType="uy.edu.cei.taller.bean.UsuarioBean">
+		SELECT * FROM USUARIOS WHERE LIKE '%'|| #{nombreUsuario} ||'%'
+	</select>
 	
 	<select id="selectByNombreUsuario" resultMap="OneUsuarioMap">
 		SELECT * FROM

@@ -22,7 +22,7 @@ public class ViajeBean {
 	private Integer idViaje2;
 	private boolean isEliminado;
 	
-	private ClienteBean Clientes;
+	private ClienteBean Cliente;
 	private List<ModificacionViajeBean> ModificacionesViajes;
 	private UsuarioBean Usuarios;
 	private ViajeBean Viajes2;
@@ -156,12 +156,12 @@ public class ViajeBean {
 		this.isEliminado = isEliminado;
 	}
 
-	public Clientes getClienteBean() {
-		return ClienteBean;
+	public ClienteBean getClienteBean() {
+		return Cliente;
 	}
 
-	public void setClienteBean(Clientes clienteBean) {
-		ClienteBean = clienteBean;
+	public void setClienteBean(ClienteBean clienteBean) {
+		Cliente = clienteBean;
 	}
 
 	public List<ModificacionViajeBean> getModificacionesViajes() {
