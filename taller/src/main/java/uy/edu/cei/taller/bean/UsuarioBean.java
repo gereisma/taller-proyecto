@@ -14,14 +14,14 @@ public class UsuarioBean {
 	private String connId;
 	private Boolean isEliminado;
 
-	private RolBean rol;
+	private RolBean Roles;
 
-	public RolBean getRol() {
-		return rol;
+	public RolBean getRoles() {
+		return Roles;
 	}
 
-	public void setRol(RolBean rol) {
-		this.rol = rol;
+	public void setRoles(RolBean roles) {
+		this.Roles = roles;
 	}
 
 	public long getId() {

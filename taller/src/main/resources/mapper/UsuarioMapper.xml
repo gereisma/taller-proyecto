@@ -16,7 +16,7 @@
 		<result property="connId" column="connId" />
 		<result property="isEliminado" column="isEliminado" />
 
-		<association property="rol"
+		<association property="Roles"
 			javaType="uy.edu.cei.taller.bean.RolBean">
 			<id property="id" column="id" />
 			<result property="rol" column="rol" />
@@ -118,6 +118,12 @@
 		#{nombreUsuario}
 	</delete>
 	<delete id="deleteById">
-		delete from USUARIOS where id = #{id}
+		UPDATE Usuarios SET Usuarios.isEliminado = 1
+		WHERE id = 0; --#{id};
+
+		IF EXISTS(SELECT * FROM Clientes c WHERE c.idUsuario =#{id};)
+        UPDATE Clientes SET Clientes.isEliminado =0 WHERE Clientes.idUsuario = #{id};
+
+		
 	</delete>
 </mapper>
