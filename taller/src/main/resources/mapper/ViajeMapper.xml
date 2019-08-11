@@ -1,123 +1,159 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="uy.edu.cei.taller.dao.UsuarioMapper">
+<mapper namespace="uy.edu.cei.taller.dao.ViajeMapper">
 
-	<resultMap id="OneUsuarioMap"
-		type="uy.edu.cei.taller.bean.UsuarioBean">
+	<resultMap id="OneViajeMap"
+		type="uy.edu.cei.taller.bean.ViajeBean">
 		<id property="id" column="id" />
-		<result property="nombreUsuario" column="nombreUsuario" />
-		<result property="email" column="email" />
-		<result property="ubicacion" column="ubicacion" />
-		<result property="activo" column="activo" />
-		<result property="idRol" column="idRol" />
-		<result property="valoracion" column="valoracion" />
-		<result property="verificado" column="verificado" />
-		<result property="connId" column="connId" />
+		<result property="dtEmision" column="dtEmision" />
+		<result property="estado" column="estado" />
+		<result property="valoracionCliente" column="valoracionCliente" />
+		<result property="valoracionChofer" column="valoracionChofer" />
+		<result property="precioFinal" column="precioFinal" />
+		<result property="telefonoCliente" column="telefonoCliente" />
+		<result property="origen" column="origen" />
+		<result property="destino" column="destino" />
+		<result property="cantKm" column="cantKm" />
+		<result property="idChofer" column="idChofer" />
+		<result property="idCliente" column="idCliente" />
+		<result property="idUsuarioMod" column="idUsuarioMod" />
+		<result property="dtReserva" column="dtReserva" />
+		<result property="idViaje2" column="idViaje2" />
 		<result property="isEliminado" column="isEliminado" />
 
-		<association property="rol"
-			javaType="uy.edu.cei.taller.bean.RolBean">
+		<association property="Usuario"
+			javaType="uy.edu.cei.taller.bean.UsuarioBean">
 			<id property="id" column="id" />
-			<result property="rol" column="rol" />
-			<collection property="permisos" column="idRol"
-				ofType="uy.edu.cei.taller.bean.PermisoBean"
-				select="selectPermisosByIdRol" />
+			<result property="nombreUsuario" column="nombreUsuario" />
+			<result property="email" column="email" />
+			<result property="ubicacion" column="ubicacion" />
+			<result property="activo" column="activo" />
+			<result property="idRol" column="idRol" />
+			<result property="valoracion" column="valoracion" />
+			<result property="verificado" column="verificado" />
+			<result property="connId" column="connId" />
+			<result property="isEliminado" column="isEliminado" />
+		</association>
+
+		<association property="Viaje2"
+			javaType="uy.edu.cei.taller.bean.ViajeBean">
+			<id property="id" column="id" />
+			<result property="dtEmision" column="dtEmision" />
+			<result property="estado" column="estado" />
+			<result property="valoracionCliente"
+				column="valoracionCliente" />
+			<result property="valoracionChofer" column="valoracionChofer" />
+			<result property="precioFinal" column="precioFinal" />
+			<result property="telefonoCliente" column="telefonoCliente" />
+			<result property="origen" column="origen" />
+			<result property="destino" column="destino" />
+			<result property="cantKm" column="cantKm" />
+			<result property="idChofer" column="idChofer" />
+			<result property="idCliente" column="idCliente" />
+			<result property="idUsuarioMod" column="idUsuarioMod" />
+			<result property="dtReserva" column="dtReserva" />
+			<result property="idViaje2" column="idViaje2" />
+			<result property="isEliminado" column="isEliminado" />
 		</association>
 
 	</resultMap>
 
 	<select id="selectAll"
-		resultType="uy.edu.cei.taller.bean.UsuarioBean">
-		SELECT * FROM USUARIOS
+		resultType="uy.edu.cei.taller.bean.ViajeBean">
+		SELECT * FROM VIAJES
 	</select>
 
-	<select id="selectIfNameStartWith" resultType="uy.edu.cei.taller.bean.UsuarioBean">
-		SELECT * FROM USUARIOS WHERE LIKE '%'|| #{nombreUsuario} ||'%'
-	</select>
-	
-	<select id="selectByNombreUsuario" resultMap="OneUsuarioMap">
-		SELECT * FROM
-		USUARIOS u
-		inner join ROLES r on u.idRol = r.id
-		left join DETALLESROLES
-		d on r.id = d.idRol
-		left join PERMISOS p on p.id = d.idPermiso
-		WHERE nombreUsuario=#{nombreUsuario}
+	<select id="selectById" resultMap="OneViajeMap">
+
+		SELECT * FROM VIAJES v
+		inner join USUARIOS u on v.idChofer = u.id
+		<!-- left join Clientes c on v.idCliente = c.idUsuario -->
+		left join VIAJES vv on v.idViaje2 = vv.id
+		where v.id = #{id}
+
 	</select>
 
-	<select id="selectById" resultMap="OneUsuarioMap">
-		SELECT * FROM USUARIOS u
-		inner join ROLES r on u.idRol = r.id
-		left join DETALLESROLES d on r.id = d.idRol
-		left join PERMISOS p on p.id = d.idPermiso
-		WHERE id=#{id}
-	</select>
-
-	<select id="selectPermisosByIdRol"
-		resultType="uy.edu.cei.taller.bean.PermisoBean">
-		SELECT * from PERMISOS p where p.id in (SELECT d.idPermiso
-		FROM DETALLESROLES d WHERE d.idRol = #{id})
-	</select>
+	<!-- <select id="selectPermisosByIdRol" -->
+	<!-- resultType="uy.edu.cei.taller.bean.PermisoBean"> -->
+	<!-- SELECT * from PERMISOS p where p.id in (SELECT d.idPermiso -->
+	<!-- FROM DETALLESROLES d WHERE d.idRol = #{id}) -->
+	<!-- </select> -->
 
 
-	<insert id="insert">
-		insert into USUARIOS
-		(nombreUsuario,contraseña,email,idRol,verificado)
-		values
-		<if test="usuario.verificado!=null">
-			(#{usuario.nombreUsuario},#{usuario.contraseña},#{usuario.email},#{usuario.idRol},#{usuario.verificado})
-		</if>
-		<if test="usuario.verificado==null">
-			(#{usuario.nombreUsuario},#{usuario.contraseña},#{usuario.email},#{usuario.idRol},false)
-		</if>
+	<!-- <insert id="insert"> -->
+	<!-- insert into ViajeS -->
+	<!-- (nombreViaje,contraseña,email,idRol,verificado) -->
+	<!-- values -->
+	<!-- <if test="Viaje.verificado!=null"> -->
+	<!-- (#{Viaje.nombreViaje},#{Viaje.contraseña},#{Viaje.email},#{Viaje.idRol},#{Viaje.verificado}) -->
+	<!-- </if> -->
+	<!-- <if test="Viaje.verificado==null"> -->
+	<!-- (#{Viaje.nombreViaje},#{Viaje.contraseña},#{Viaje.email},#{Viaje.idRol},false) -->
+	<!-- </if> -->
 
-	</insert>
+	<!-- </insert> -->
 
 
-	<update id="updateByIdOrNombreUsuario">
-		UPDATE USUARIOS
+	<update id="updateById">
+		UPDATE VIAJES
 		<set>
+			<if test="viaje.dtEmision!=null and viaje.dtEmision!='' ">
+				dtEmision = #{viaje.dtEmision},
+			</if>
+			<if test="viaje.estado!=null and viaje.estado!='' ">
+				estado = #{viaje.estado},
+			</if>
 			<if
-				test="usuario.nombreUsuario!=null and usuario.nombreUsuario!='' ">
-				nombreUsuario = #{usuario.nombreUsuario},
+				test="viaje.valoracionCliente!=null and viaje.valoracionCliente!='' ">
+				valoracionCliente = #{viaje.valoracionCliente},
 			</if>
-			<if test="usuario.contraseña!=null and usuario.contraseña!='' ">
-				contraseña = #{usuario.contraseña},
+			<if
+				test="viaje.valoracionChofer!=null and viaje.valoracionChofer!='' ">
+				valoracionChofer = #{viaje.valoracionChofer},
 			</if>
-			<if test="usuario.email!=null and usuario.email!='' ">
-				email = #{usuario.email},
+			<if test="viaje.precioFinal!=null and viaje.precioFinal!='' ">
+				precioFinal = #{viaje.precioFinal},
 			</if>
-			<if test="usuario.idRol!=null and usuario.idRol!='' ">
-				idRol = #{usuario.idRol},
+			<if
+				test="viaje.telefonoCliente!=null and viaje.telefonoCliente!='' ">
+				telefonoCliente = #{viaje.telefonoCliente},
 			</if>
-			<if test="usuario.ubicacion!=null and usuario.ubicacion!='' ">
-				ubicacion = #{usuario.ubicacion},
+			<if test="viaje.origen!=null and viaje.origen!='' ">
+				origen = #{viaje.origen},
 			</if>
-			<if test="usuario.activo!=null and usuario.activo!='' ">
-				activo = #{usuario.activo},
+			<if test="viaje.destino!=null and viaje.destino!='' ">
+				destino = #{viaje.destino},
 			</if>
-			<if test="usuario.valoracion!=null and usuario.valoracion!='' ">
-				valoracion = #{usuario.valoracion},
+			<if test="viaje.cantKm!=null and viaje.cantKm!='' ">
+				cantKm = #{viaje.cantKm},
 			</if>
-			<if test="usuario.verificado!=null and usuario.verificado!='' ">
-				verificado = #{usuario.verificado},
+			<if test="viaje.idChofer!=null and viaje.idChofer!='' ">
+				idChofer = #{viaje.idChofer},
 			</if>
-			<if test="usuario.connId!=null and usuario.connId!='' ">
-				connId = #{usuario.connId},
+			<if test="viaje.idCliente!=null and viaje.idCliente!='' ">
+				idCliente = #{viaje.idCliente},
 			</if>
-			<if test="usuario.verificado!=null and usuario.verificado!='' ">
-				verificado = #{usuario.verificado},
+			<if test="viaje.idUsuarioMod!=null and viaje.idUsuarioMod!='' ">
+				idUsuarioMod = #{viaje.idUsuarioMod},
+			</if>
+			<if test="viaje.dtReserva!=null and viaje.dtReserva!='' ">
+				dtReserva = #{viaje.dtReserva},
+			</if>
+			<if test="viaje.idViaje2!=null and viaje.idViaje2!='' ">
+				idViaje2 = #{viaje.idViaje2},
+			</if>
+			<if test="viaje.isEliminado!=null and viaje.isEliminado!='' ">
+				isEliminado = #{viaje.isEliminado},
 			</if>
 		</set>
-		WHERE id = #{usuario.id} or nombreUsuario = #{usuario.nombreUsuario};
+		WHERE id = #{viaje.id}
 	</update>
 
-	<delete id="deleteByNombreUsuario">
-		delete from USUARIOS where nombreUsuario =
-		#{nombreUsuario}
-	</delete>
-	<delete id="deleteById">
-		delete from USUARIOS where id = #{id}
-	</delete>
+	<!-- <delete id="deleteById"> -->
+
+	<!-- UPDATE VIAJES SET VIAJES.isEliminado = 1 -->
+	<!-- WHERE id = #{id}; -->
+
+	<!-- </delete> -->
 </mapper>

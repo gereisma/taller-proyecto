@@ -124,6 +124,5 @@
 		IF EXISTS(SELECT * FROM Clientes c WHERE c.idUsuario =#{id};)
         UPDATE Clientes SET Clientes.isEliminado =0 WHERE Clientes.idUsuario = #{id};
 
-		
 	</delete>
 </mapper>

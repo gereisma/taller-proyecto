@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import uy.edu.cei.taller.bean.UsuarioBean;
 import uy.edu.cei.taller.bean.ViajeBean;
 import uy.edu.cei.taller.dao.ViajeMapper;
 
@@ -32,8 +34,8 @@ public class ViajeController {
 		return this.viajeMapper.selectAll();
 	}
 
-	@GetMapping("id")
-	public ViajeBean getById(@RequestParam(value = "id", required = true) long id) {
+	@GetMapping("/{id}")
+	public ViajeBean getById(@PathVariable long id) {
 		return this.viajeMapper.selectById(id);
 	}
 
