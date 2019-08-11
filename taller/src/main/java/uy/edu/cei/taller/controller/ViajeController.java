@@ -10,10 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import uy.edu.cei.taller.bean.UsuarioBean;
 import uy.edu.cei.taller.bean.ViajeBean;
 import uy.edu.cei.taller.dao.ViajeMapper;
 
@@ -45,8 +43,8 @@ public class ViajeController {
 	}
 
 	@PutMapping
-	public void updateById(@RequestBody ViajeBean viaje) {
-		this.viajeMapper.updateById(viaje);
+	public ViajeBean updateById(@RequestBody ViajeBean viaje) {
+		return this.viajeMapper.updateById(viaje);
 	}
 	
 	@DeleteMapping("/{nombreUsuario}")

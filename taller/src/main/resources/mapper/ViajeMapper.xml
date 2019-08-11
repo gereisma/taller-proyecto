@@ -95,8 +95,8 @@
 	<!-- </insert> -->
 
 
-	<update id="updateById">
-		UPDATE VIAJES
+	<update id="updateById" >
+		UPDATE VIAJES 
 		<set>
 			<if test="viaje.dtEmision!=null and viaje.dtEmision!='' ">
 				dtEmision = #{viaje.dtEmision},
@@ -144,16 +144,17 @@
 				idViaje2 = #{viaje.idViaje2},
 			</if>
 			<if test="viaje.isEliminado!=null and viaje.isEliminado!='' ">
-				isEliminado = #{viaje.isEliminado},
+				isEliminado = #{viaje.isEliminado}
 			</if>
 		</set>
 		WHERE id = #{viaje.id}
 	</update>
 
-	<!-- <delete id="deleteById"> -->
 
-	<!-- UPDATE VIAJES SET VIAJES.isEliminado = 1 -->
-	<!-- WHERE id = #{id}; -->
+	<delete id="deleteById">
 
-	<!-- </delete> -->
+	UPDATE VIAJES SET isEliminado = 1
+	WHERE id = #{id};
+
+	</delete>
 </mapper>
