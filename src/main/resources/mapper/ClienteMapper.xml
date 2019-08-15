@@ -21,6 +21,8 @@
 				select="updateByIdUsuarioOrNombre" />
 		</association>
 </resultMap>
+
+
 		
 		<select id="selectAll"
 		resultType="uy.edu.cei.taller.bean.ClientesBean">
