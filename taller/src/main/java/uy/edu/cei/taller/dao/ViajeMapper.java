@@ -10,12 +10,17 @@ import uy.edu.cei.taller.bean.ViajeBean;
 
 @Mapper
 public interface ViajeMapper {
-
+	
 	public List<ViajeBean> selectAll();
+	public List<ViajeBean> selectViajesFinishOrCancelado();
+	public List<ViajeBean> selectViajesForAssignViaje2();
+	public List<ViajeBean> selectViajesByCliente(@Param("id") int id);
+	public Boolean anyClienteHaveViajeInProcess(@Param("id") int id);
+	public Boolean anyChoferHaveViajeInProcess(@Param("id") int id);
 	public List<ViajeBean> selectByRangeOfDate(@Param("desde") Date desde,@Param("hasta") Date hasta);
-	public ViajeBean selectById(@Param("id") long id);
-	public void insert(@Param("viaje") ViajeBean viaje);
-	public ViajeBean updateById(@Param("viaje") ViajeBean viaje);
+	public ViajeBean selectById(@Param("id") int id);
+	public long insert(@Param("viaje") ViajeBean viaje);
+	public void updateById(@Param("viaje") ViajeBean viaje);
 	public void deleteById(@Param("id") int id);	
 		
 }
