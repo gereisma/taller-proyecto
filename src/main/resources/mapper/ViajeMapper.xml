@@ -113,7 +113,7 @@
 	</select>
 
 
-	where campoFecha between '2014-05-05' and '2014-05-06 23:59:59'
+	<!-- where campoFecha between '2014-05-05' and '2014-05-06 23:59:59'-->
 
 	<select id="anyClienteHaveViajeInProcess" resultType="Boolean">
 
