@@ -7,14 +7,16 @@ public class UsuarioBean {
 	private String email;
 	private String contraseña;
 	private String ubicacion;
-	private Boolean activo;
+	private boolean activo;
 	private int idRol;
 	private int valoracion;
-	private Boolean verificado;
+	private boolean verificado;
 	private String connId;
-	private Boolean isEliminado;
+	private boolean isEliminado;
 
 	private RolBean Roles;
+	
+	private ClienteBean Clientes;
 
 	public RolBean getRoles() {
 		return Roles;
@@ -110,6 +112,14 @@ public class UsuarioBean {
 
 	public void setIsEliminado(Boolean isEliminado) {
 		this.isEliminado = isEliminado;
+	}
+
+	public ClienteBean getClientes() {
+		return Clientes;
+	}
+
+	public void setClientes(ClienteBean clientes) {
+		Clientes = clientes;
 	}
 
 }

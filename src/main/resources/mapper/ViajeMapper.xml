@@ -74,6 +74,69 @@
 
 	</select>
 
+	<select id="selectViajesForAssignViaje2"
+		resultType="uy.edu.cei.taller.bean.ViajeBean">
+
+		SELECT * FROM VIAJES w WHERE
+		((w.estado = 'edicion' and
+		w.idChofer != null) or w.estado = 'camino')
+		and w.valoracionChofer = 1
+		and w.idViaje2 = null
+
+	</select>
+
+	<select id="selectViajesByCliente"
+		resultType="uy.edu.cei.taller.bean.ViajeBean">
+
+		SELECT * FROM VIAJES w WHERE
+		w.isEliminado = 0 and
+		w.idCliente = #{id}
+
+	</select>
+
+	<select id="selectViajesFinishOrCancelado"
+		resultType="uy.edu.cei.taller.bean.ViajeBean">
+
+		SELECT * FROM VIAJES w WHERE
+		w.isEliminado = 0 and (w.estado
+		= 'finalizado' or w.estado = 'cancelado')
+
+	</select>
+
+	<select id="selectViajesByRangeDt"
+		resultType="uy.edu.cei.taller.bean.ViajeBean">
+
+		SELECT * FROM VIAJES w WHERE
+		w. = 0 and (w.estado
+		= 'finalizado' or w.estado = 'cancelado')
+
+	</select>
+
+
+	where campoFecha between '2014-05-05' and '2014-05-06 23:59:59'
+
+	<select id="anyClienteHaveViajeInProcess" resultType="Boolean">
+
+		SELECT CASE
+		WHEN EXISTS (select * from Viajes where idCliente = #{id} and estado
+		not in ('cancelado', 'finalizado') and isEliminado = 0 )THEN
+		CAST(1 AS
+		BIT)ELSE CAST(0 AS
+		BIT) END
+
+	</select>
+
+	<select id="anyChoferHaveViajeInProcess" resultType="Boolean">
+
+		SELECT CASE
+		WHEN EXISTS (select * from Viajes where idCliente = #{id} and estado
+		not in ('cancelado', 'finalizado') and isEliminado = 0)THEN CAST(1
+		AS
+		BIT)ELSE CAST(0 AS
+		BIT) END
+
+	</select>
+
 	<!-- <select id="selectPermisosByIdRol" -->
 	<!-- resultType="uy.edu.cei.taller.bean.PermisoBean"> -->
 	<!-- SELECT * from PERMISOS p where p.id in (SELECT d.idPermiso -->
@@ -81,22 +144,34 @@
 	<!-- </select> -->
 
 
-	<!-- <insert id="insert"> -->
-	<!-- insert into ViajeS -->
-	<!-- (nombreViaje,contraseña,email,idRol,verificado) -->
-	<!-- values -->
-	<!-- <if test="Viaje.verificado!=null"> -->
-	<!-- (#{Viaje.nombreViaje},#{Viaje.contraseña},#{Viaje.email},#{Viaje.idRol},#{Viaje.verificado}) -->
-	<!-- </if> -->
-	<!-- <if test="Viaje.verificado==null"> -->
-	<!-- (#{Viaje.nombreViaje},#{Viaje.contraseña},#{Viaje.email},#{Viaje.idRol},false) -->
-	<!-- </if> -->
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
+		keyColumn="id">
+		insert into VIAJES
+		(dtEmision,estado,valoracionCliente,valoracionChofer,precioFinal,telefonoCliente,origen,
+		destino,cantKm,idChofer,idCliente,idUsuarioMod,dtReserva,idViaje2,isEliminado)
+		VALUES
+		(
+		#{viaje.dtEmision}
+		,#{viaje.estado}
+		,#{viaje.valoracionCliente}
+		,#{viaje.valoracionChofer}
+		,#{viaje.precioFinal}
+		,#{viaje.telefonoCliente}
+		,#{viaje.origen}
+		,#{viaje.destino}
+		,#{viaje.cantKm}
+		,#{viaje.idChofer}
+		,#{viaje.idCliente}
+		,#{viaje.idUsuarioMod}
+		,#{viaje.dtReserva}
+		,#{viaje.idViaje2}
+		,#{viaje.isEliminado}
+		)
 
-	<!-- </insert> -->
+	</insert>
 
-
-	<update id="updateById" >
-		UPDATE VIAJES 
+	<update id="updateById">
+		UPDATE VIAJES
 		<set>
 			<if test="viaje.dtEmision!=null and viaje.dtEmision!='' ">
 				dtEmision = #{viaje.dtEmision},
@@ -153,8 +228,8 @@
 
 	<delete id="deleteById">
 
-	UPDATE VIAJES SET isEliminado = 1
-	WHERE id = #{id};
+		UPDATE VIAJES SET isEliminado = 1
+		WHERE id = #{id};
 
 	</delete>
 </mapper>

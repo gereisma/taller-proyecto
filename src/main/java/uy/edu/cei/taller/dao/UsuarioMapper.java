@@ -16,7 +16,7 @@ public interface UsuarioMapper {
 	public UsuarioBean selectById(@Param("id") long id);
 	public void insert(@Param("usuario") UsuarioBean usuario);
 	public void updateByIdOrNombreUsuario(@Param("usuario") UsuarioBean usuario);
-	public void deleteById(@Param("id") int id);	
+	public void deleteById(@Param("id") long id);	
 	public void deleteByNombreUsuario(@Param("nombreUsuario") String nombreUsuario);	
 		
 }

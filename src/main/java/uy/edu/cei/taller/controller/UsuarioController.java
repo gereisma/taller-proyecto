@@ -32,7 +32,7 @@ public class UsuarioController {
 		return this.usuarioMapper.selectAll();
 	}
 
-	@GetMapping("/{nombre}")
+	@GetMapping("/{nombreUsuario}")
 	public UsuarioBean getByNombreUsuario(@PathVariable String nombreUsuario) {
 		return this.usuarioMapper.selectByNombreUsuario(nombreUsuario);
 	}
@@ -48,15 +48,22 @@ public class UsuarioController {
 	}
 
 	@PostMapping
-	public void save(@RequestBody UsuarioBean usuario) {
+	public boolean save(@RequestBody UsuarioBean usuario) {
 		this.usuarioMapper.insert(usuario);
+		return true;
 	}
 
 	@PutMapping
-	public void updateById(@RequestBody UsuarioBean usuario) {
+	public boolean updateById(@RequestBody UsuarioBean usuario) {
 		this.usuarioMapper.updateByIdOrNombreUsuario(usuario);
+		return true;
 	}
 
+	@DeleteMapping("id")
+	public void de(@RequestParam(value = "id", required = true) long id) {
+		this.usuarioMapper.deleteById(id);
+	}
+	
 	@DeleteMapping("/{nombreUsuario}")
 	public void de(@PathVariable String nombreUsuario) {
 		this.usuarioMapper.deleteByNombreUsuario(nombreUsuario);
