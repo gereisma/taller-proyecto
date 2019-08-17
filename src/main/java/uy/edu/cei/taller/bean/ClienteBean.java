@@ -9,7 +9,7 @@ public class ClienteBean {
 	private String nombre;
 	private String apellido;
 	private String telefono;
-	private Boolean isEliminado;
+	private boolean isEliminado;
 	private UsuarioBean Usuario;
 	private List<ViajeBean> Viajes;
 	private List<DireccionBean> Direcciones;
