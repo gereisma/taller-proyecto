@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="uy.edu.cei.taller.dao.DireccionMapper">
+
+	<select id="selectByidUsuario"
+		resultType="uy.edu.cei.taller.bean.DireccionBean">
+		SELECT * FROM DIRECCIONES WHERE isEliminado=0 AND idUsuario=#{idUsuario}
+	</select>
+
+	<insert id="insert">
+		insert into DIRECCIONES
+		(ubicacion,nombre,descripcion,idUsuario)
+		values
+		(#{direccion.ubicacion},#{direccion.nombre},#{direccion.descripcion},#{direccion.idUsuario})
+	</insert>
+
+	<delete id="deleteByIdUsuario">
+		UPDATE Direcciones SET Direcciones.isEliminado = 1
+		WHERE id = 0; #{idUsuario};
+	</delete>
+	
+</mapper> 

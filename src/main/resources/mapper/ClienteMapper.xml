@@ -3,7 +3,7 @@
 
 <mapper namespace="uy.edu.cei.taller.dao.ClienteMapper">
 
-<resultMap id="OneClienteMap"
+	<resultMap id="OneClienteMap"
 		type="uy.edu.cei.taller.bean.ClienteBean">
 		<id property="idUsuario" column="idUsuario" />
 		<result property="documento" column="documento" />
@@ -11,7 +11,7 @@
 		<result property="apellido" column="apellido" />
 		<result property="telefono" column="telefono" />
 		<result property="isEliminado" column="isEliminado" />
-		
+
 		<association property="Usuarios"
 			javaType="uy.edu.cei.taller.bean.UsuarioBean">
 			<id property="id" column="id" />
@@ -20,9 +20,9 @@
 				ofType="uy.edu.cei.taller.bean.UsuarioBean"
 				select="updateByIdUsuarioOrNombre" />
 		</association>
-</resultMap>
-		
-		<select id="selectAll"
+	</resultMap>
+
+	<select id="selectAll"
 		resultType="uy.edu.cei.taller.bean.ClienteBean">
 		SELECT * FROM CLIENTES
 	</select>
@@ -30,14 +30,16 @@
 		SELECT * FROM
 		CLIENTES WHERE nombre=#{nombre}
 	</select>
-	<select id="selectIfNameStartWith" resultType="uy.edu.cei.taller.bean.ClienteBean">
+	<select id="selectIfNameStartWith"
+		resultType="uy.edu.cei.taller.bean.ClienteBean">
 		SELECT * FROM CLIENTES WHERE LIKE '%'|| #{nombre} ||'%'
 	</select>
-	
+
 	<select id="selectById" resultMap="OneClienteMap">
-		SELECT * FROM CLIENTES WHERE idUsuario=#{idUsuario}
+		SELECT * FROM CLIENTES WHERE
+		idUsuario=#{idUsuario}
 	</select>
-	
+
 	<insert id="insert">
 		insert into CLIENTES
 		(idUsuario,documento,nombre,apellido,telefono,isEliminado)
@@ -47,44 +49,45 @@
 		</if>
 
 	</insert>
-	
+
 	<update id="updateByIdOrNombreCliente">
 		UPDATE CLIENTES
 		<set>
-			<if	test="cliente.idUsuario!=null and cliente.idUsuario!='' ">
+			<if test="cliente.idUsuario!=null and cliente.idUsuario!='' ">
 				idUsuario = #{cliente.idUsuario},
 			</if>
-			<if	test="cliente.documento!=null and cliente.documento!='' ">
+			<if test="cliente.documento!=null and cliente.documento!='' ">
 				documento = #{cliente.documento},
 			</if>
-			<if	test="cliente.nombre!=null and cliente.nombre!='' ">
+			<if test="cliente.nombre!=null and cliente.nombre!='' ">
 				nombre = #{cliente.nombre},
 			</if>
-			<if	test="cliente.apellido!=null and cliente.apellido!='' ">
+			<if test="cliente.apellido!=null and cliente.apellido!='' ">
 				apellido = #{cliente.apellido},
 			</if>
-			<if	test="cliente.telefono!=null and cliente.telefono!='' ">
+			<if test="cliente.telefono!=null and cliente.telefono!='' ">
 				telefono = #{cliente.telefono},
 			</if>
-			<if	test="cliente.isEliminado!=null and cliente.isEliminado!='' ">
+			<if test="cliente.isEliminado!=null and cliente.isEliminado!='' ">
 				isEliminado = #{cliente.isEliminado},
 			</if>
-		
+
 
 		</set>
 		WHERE idUsuario = #{cliente.idUsuario} or nombre = #{cliente.nombre};
 	</update>
-	
+
 	<delete id="deleteById">
 		SELECT * FROM Clientes c WHERE c.idUsuario =#{id};)
-        UPDATE Clientes SET Clientes.isEliminado =0 WHERE Clientes.idUsuario = #{id};
+		UPDATE Clientes SET Clientes.isEliminado =0 WHERE Clientes.idUsuario =
+		#{id};
 
 	</delete>
-	
-		<delete id="deleteByNombre">
+
+	<delete id="deleteByNombre">
 		delete from CLIENTES where nombre = #{nombreUsuario}
-		
+
 	</delete>
-	
-	
+
+
 </mapper>
