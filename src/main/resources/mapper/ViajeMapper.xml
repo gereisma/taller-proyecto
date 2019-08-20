@@ -103,17 +103,9 @@
 
 	</select>
 
-	<select id="selectViajesByRangeDt"
-		resultType="uy.edu.cei.taller.bean.ViajeBean">
-
-		SELECT * FROM VIAJES w WHERE
-		w. = 0 and (w.estado
-		= 'finalizado' or w.estado = 'cancelado')
-
+	<select id="selectViajesByRangeDt" resultType="uy.edu.cei.taller.bean.ViajeBean">
+	 	select * from Viajes v where v.dtEmision between #{desde} and #{hasta}
 	</select>
-
-
-<!-- 	where campoFecha between '2014-05-05' and '2014-05-06 23:59:59' -->
 
 	<select id="anyClienteHaveViajeInProcess" resultType="Boolean">
 
