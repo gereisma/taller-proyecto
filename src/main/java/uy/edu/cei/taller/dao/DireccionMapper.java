@@ -8,9 +8,9 @@ import uy.edu.cei.taller.bean.DireccionBean;
 @Mapper
 public interface DireccionMapper {
 
-		DireccionBean selectByidUsuario(String nombre);
+		DireccionBean selectByidUsuario(long idUsuario);
 		
-		public void deleteByIdUsuario(@Param("idUsuario") int idUsuario);
+		public void deleteByIdUsuario(@Param("idUsuario") long idUsuario);
 
 		void insert(DireccionBean direccion);
 
