@@ -23,7 +23,7 @@
 </resultMap>
 		
 		<select id="selectAll"
-		resultType="uy.edu.cei.taller.bean.ClientesBean">
+		resultType="uy.edu.cei.taller.bean.ClienteBean">
 		SELECT * FROM CLIENTES
 	</select>
 	<select id="selectByNombreCliente" resultMap="OneclienteMap">

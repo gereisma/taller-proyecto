@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 import uy.edu.cei.taller.bean.ClienteBean;
 import uy.edu.cei.taller.dao.ClienteMapper;
 
-
 @RestController
 @RequestMapping("/Cliente")
 

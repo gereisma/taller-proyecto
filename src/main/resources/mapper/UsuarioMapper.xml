@@ -24,7 +24,7 @@
 				ofType="uy.edu.cei.taller.bean.PermisoBean"
 				select="selectPermisosByIdRol" />
 		</association>
-		
+
 		<association property="Clientes"
 			javaType="uy.edu.cei.taller.bean.ClienteBean">
 			<id property="idUsuario" column="idUsuario" />
@@ -36,28 +36,33 @@
 			<collection property="direcciones" column="idUsuario"
 				ofType="uy.edu.cei.taller.bean.DireccionBean"
 				select="selectDireccionesByIdUsuario" />
-			
-			
+
+
 		</association>
-	
+
 	</resultMap>
 
 	<select id="selectAll"
-		resultType="uy.edu.cei.taller.bean.UsuarioBean" resultMap="OneUsuarioMap">
+		resultType="uy.edu.cei.taller.bean.UsuarioBean"
+		resultMap="OneUsuarioMap">
 		SELECT * FROM
 		USUARIOS u
 		inner join ROLES r on u.idRol = r.id
 		left join DETALLESROLES
 		d on r.id = d.idRol
-		left join PERMISOS p on p.id = d.idPermiso
+		left join PERMISOS p on p.id
+		= d.idPermiso
 		left join CLIENTES c on c.idUsuario = u.id
-		left join DIRECCIONES dir on dir.idUsuario = u.id
+		left join
+		DIRECCIONES dir on dir.idUsuario = u.id
 	</select>
 
-	<select id="selectIfNameStartWith" resultType="uy.edu.cei.taller.bean.UsuarioBean">
-		SELECT * FROM USUARIOS WHERE LIKE '%'|| #{nombreUsuario} ||'%'
+	<select id="selectIfNameStartWith"
+		resultType="uy.edu.cei.taller.bean.UsuarioBean">
+		SELECT * FROM USUARIOS WHERE LIKE '%'|| #{nombreUsuario}
+		||'%'
 	</select>
-	
+
 	<select id="selectByNombreUsuario" resultMap="OneUsuarioMap">
 		SELECT * FROM
 		USUARIOS u
@@ -65,19 +70,24 @@
 		left join DETALLESROLES
 		d on r.id = d.idRol
 		left join PERMISOS p on p.id = d.idPermiso
-		left join CLIENTES c on c.idUsuario = u.id
-		left join DIRECCIONES dir on dir.idUsuario = u.id
+		left join
+		CLIENTES c on c.idUsuario = u.id
+		left join DIRECCIONES dir on
+		dir.idUsuario = u.id
 		WHERE nombreUsuario=#{nombreUsuario}
 	</select>
 
 	<select id="selectById" resultMap="OneUsuarioMap">
 		SELECT * FROM
 		USUARIOS u
-		inner join ROLES r on u.idRol = r.id
+		inner
+		join ROLES r on u.idRol = r.id
 		left join DETALLESROLES
-		d on r.id = d.idRol
+		d on r.id =
+		d.idRol
 		left join PERMISOS p on p.id = d.idPermiso
-		left join CLIENTES c on c.idUsuario = u.id
+		left join CLIENTES c
+		on c.idUsuario = u.id
 		left join DIRECCIONES dir on dir.idUsuario = u.id
 		WHERE id=#{id}
 	</select>
@@ -90,7 +100,8 @@
 
 	<select id="selectDireccionesByIdUsuario"
 		resultType="uy.edu.cei.taller.bean.DireccionBean">
-		SELECT * from DIRECCIONES p where p.idUsuario = #{idUsuario}
+		SELECT * from DIRECCIONES p where p.idUsuario =
+		#{idUsuario}
 	</select>
 
 	<insert id="insert">
@@ -143,7 +154,6 @@
 			<if test="usuario.ubicacion!=null and usuario.ubicacion!='' ">
 				ubicacion = #{usuario.ubicacion}
 			</if>
-			
 		</set>
 		WHERE id = #{usuario.id} or nombreUsuario = #{usuario.nombreUsuario};
 	</update>
@@ -152,14 +162,16 @@
 		delete from USUARIOS where nombreUsuario =
 		#{nombreUsuario}
 	</delete>
-	
+
 	<delete id="deleteById">
 		UPDATE Usuarios SET Usuarios.isEliminado = 1
-		WHERE id = #{id};
+		WHERE id
+		= #{id};
 
 		IF EXISTS(SELECT * FROM Clientes c WHERE c.idUsuario =#{id};)
-        UPDATE Clientes SET Clientes.isEliminado =0 WHERE Clientes.idUsuario = #{id};
+		UPDATE Clientes SET Clientes.isEliminado =0 WHERE Clientes.idUsuario =
+		#{id};
 
 	</delete>
-	
+
 </mapper>
