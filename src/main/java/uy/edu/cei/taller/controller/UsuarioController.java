@@ -42,8 +42,8 @@ public class UsuarioController {
 //		return this.usuarioMapper.selectIfNameStartWith(nombreUsuario);
 //	}
 
-	@GetMapping("id")
-	public UsuarioBean getById(@RequestParam(value = "id", required = true) long id) {
+	@GetMapping("/id/{id}")
+	public UsuarioBean getById(@PathVariable int id) {
 		return this.usuarioMapper.selectById(id);
 	}
 

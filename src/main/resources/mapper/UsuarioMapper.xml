@@ -8,6 +8,7 @@
 		<id property="id" column="id" />
 		<result property="nombreUsuario" column="nombreUsuario" />
 		<result property="email" column="email" />
+		<result property="contraseña" column="contraseña" />
 		<result property="ubicacion" column="ubicacion" />
 		<result property="activo" column="activo" />
 		<result property="idRol" column="idRol" />
@@ -41,6 +42,19 @@
 		</association>
 
 	</resultMap>
+	
+	<resultMap id="OneDirMap"
+		type="uy.edu.cei.taller.bean.DireccionBean">
+		
+		<id property="id" column="idDir" />
+		<result property="ubicacion" column="ubicacionDir" />
+		<result property="nombre" column="nombreDir" />
+		<result property="descripcion" column="descripcionDir" />
+		<result property="idUsuario" column="idUsuario" />
+		<result property="isEliminado" column="isEliminadoDir" />
+
+		
+	</resultMap>
 
 	<select id="selectAll"
 		resultType="uy.edu.cei.taller.bean.UsuarioBean"
@@ -72,24 +86,21 @@
 		left join PERMISOS p on p.id = d.idPermiso
 		left join
 		CLIENTES c on c.idUsuario = u.id
-		left join DIRECCIONES dir on
-		dir.idUsuario = u.id
 		WHERE nombreUsuario=#{nombreUsuario}
 	</select>
 
 	<select id="selectById" resultMap="OneUsuarioMap">
 		SELECT * FROM
 		USUARIOS u
-		inner
-		join ROLES r on u.idRol = r.id
+		inner join ROLES r on u.idRol = r.id
 		left join DETALLESROLES
-		d on r.id =
-		d.idRol
+		d on r.id = d.idRol
 		left join PERMISOS p on p.id = d.idPermiso
-		left join CLIENTES c
-		on c.idUsuario = u.id
-		left join DIRECCIONES dir on dir.idUsuario = u.id
-		WHERE id=#{id}
+		left join
+		CLIENTES c on c.idUsuario = u.id
+		left join DIRECCIONES dir on
+		dir.idUsuario = u.id
+		WHERE u.id=#{id}
 	</select>
 
 	<select id="selectPermisosByIdRol"
@@ -99,8 +110,8 @@
 	</select>
 
 	<select id="selectDireccionesByIdUsuario"
-		resultType="uy.edu.cei.taller.bean.DireccionBean">
-		SELECT * from DIRECCIONES p where p.idUsuario =
+		resultMap="OneDirMap">
+		SELECT id as 'idDir',nombre as 'nombreDir', ubicacion as 'ubicacionDir',descripcion as 'descripcionDir',isEliminado as 'isEliminadoDir',idUsuario from DIRECCIONES p where p.idUsuario =
 		#{idUsuario}
 	</select>
 
