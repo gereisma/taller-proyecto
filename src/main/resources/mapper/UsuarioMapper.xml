@@ -98,8 +98,6 @@
 		left join PERMISOS p on p.id = d.idPermiso
 		left join
 		CLIENTES c on c.idUsuario = u.id
-		left join DIRECCIONES dir on
-		dir.idUsuario = u.id
 		WHERE u.id=#{id}
 	</select>
 
