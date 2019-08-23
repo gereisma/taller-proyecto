@@ -14,8 +14,6 @@ public interface ClienteMapper {
 
 	public ClienteBean selectByNombreCliente(@Param("nombre") String nombre);
 
-	public List<ClienteBean> selectIfNameStartWith(@Param("nombre") String nombre);
-
 	public ClienteBean selectById(@Param("id") long id);
 
 	public void insert(@Param("cliente") ClienteBean cliente);

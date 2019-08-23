@@ -12,27 +12,44 @@
 		<result property="telefono" column="telefono" />
 		<result property="isEliminado" column="isEliminado" />
 
-		<association property="Usuarios"
+		<association property="Usuario"
 			javaType="uy.edu.cei.taller.bean.UsuarioBean">
 			<id property="id" column="id" />
-			<result property="usuario" column="usuario" />
-			<collection property="usuarios" column="idUsuario"
-				ofType="uy.edu.cei.taller.bean.UsuarioBean"
-				select="updateByIdUsuarioOrNombre" />
+			<result property="nombreUsuario" column="nombreUsuario" />
+			<result property="email" column="email" />
+			<result property="contraseña" column="contraseña" />
+			<result property="ubicacion" column="ubicacion" />
+			<result property="activo" column="activo" />
+			<result property="idRol" column="idRol" />
+			<result property="valoracion" column="valoracion" />
+			<result property="verificado" column="verificado" />
+			<result property="connId" column="connId" />
+			<result property="isEliminado" column="isEliminado" />
 		</association>
+		
+		<collection property="Direcciones" column="idUsuario"
+			ofType="uy.edu.cei.taller.bean.DireccionBean"
+			select="selectDireccionesByidUsuario" />
+
 	</resultMap>
 
-	<select id="selectAll"
-		resultMap="OneClienteMap">
+
+	<select id="selectDireccionesByidUsuario"
+		resultType="uy.edu.cei.taller.bean.DireccionBean">
+		SELECT * FROM DIRECCIONES WHERE isEliminado=0 AND
+		idUsuario=#{idUsuario}
+	</select>
+
+
+	<select id="selectAll" resultMap="OneClienteMap">
 		SELECT * FROM CLIENTES
 	</select>
 	<select id="selectByNombreCliente" resultMap="OneClienteMap">
 		SELECT * FROM
-		CLIENTES WHERE nombre=#{nombre}
-	</select>
-	<select id="selectIfNameStartWith"
-		resultType="uy.edu.cei.taller.bean.ClienteBean">
-		SELECT * FROM CLIENTES WHERE LIKE '%'|| #{nombre} ||'%'
+		CLIENTES c WHERE c.nombre=#{nombre}
+		left join USUARIOS u on c.idUsuario
+		= u.id
+
 	</select>
 
 	<select id="selectById" resultMap="OneClienteMap">
@@ -42,11 +59,10 @@
 
 	<insert id="insert">
 		insert into CLIENTES
-		(idUsuario,documento,nombre,apellido,telefono,isEliminado)
+		(idUsuario,documento,nombre,apellido,telefono,dtNacimiento)
 		values
-		<if test="clientes.idUsuario!=null">
-			(#{cliente.idUsuario},#{cliente.documento},#{cliente.nombre},#{cliente.apellido},#{cliente.telefono},#{cliente.isEliminado})
-		</if>
+		(#{cliente.idUsuario},#{cliente.documento},#{cliente.nombre},#{cliente.apellido},#{cliente.telefono},#{cliente.dtNacimiento})
+		
 
 	</insert>
 

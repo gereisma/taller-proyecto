@@ -1,5 +1,6 @@
 package uy.edu.cei.taller.bean;
 
+import java.sql.Date;
 import java.util.List;
 
 public class ClienteBean {
@@ -10,6 +11,7 @@ public class ClienteBean {
 	private String apellido;
 	private String telefono;
 	private boolean isEliminado;
+	private Date dtNacimiento;
 	private UsuarioBean Usuario;
 	private List<ViajeBean> Viajes;
 	private List<DireccionBean> Direcciones;
@@ -67,6 +69,12 @@ public class ClienteBean {
 	}
 	public void setIsEliminado(Boolean isEliminado) {
 		this.isEliminado = isEliminado;
+	}
+	public Date getDtNacimiento() {
+		return dtNacimiento;
+	}
+	public void setDtNacimiento(Date dtNacimiento) {
+		this.dtNacimiento = dtNacimiento;
 	}
 	
 	
