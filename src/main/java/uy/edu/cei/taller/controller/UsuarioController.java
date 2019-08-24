@@ -54,9 +54,10 @@ public class UsuarioController {
 		return true;
 	}
 
-	@DeleteMapping("id")
-	public void de(@RequestParam(value = "id", required = true) long id) {
+	@DeleteMapping("/id/{id}")
+	public boolean de(@PathVariable long id) {
 		this.usuarioMapper.deleteById(id);
+		return true;
 	}
 	
 	@DeleteMapping("/{nombreUsuario}")

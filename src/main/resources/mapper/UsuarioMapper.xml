@@ -66,8 +66,7 @@
 		left join PERMISOS p on p.id
 		= d.idPermiso
 		left join CLIENTES c on c.idUsuario = u.id
-		left join
-		DIRECCIONES dir on dir.idUsuario = u.id
+		
 	</select>
 
 	<select id="selectIfNameStartWith"
@@ -80,9 +79,6 @@
 		SELECT * FROM
 		USUARIOS u
 		inner join ROLES r on u.idRol = r.id
-		left join DETALLESROLES
-		d on r.id = d.idRol
-		left join PERMISOS p on p.id = d.idPermiso
 		left join
 		CLIENTES c on c.idUsuario = u.id
 		WHERE nombreUsuario=#{nombreUsuario}
@@ -92,9 +88,6 @@
 		SELECT * FROM
 		USUARIOS u
 		inner join ROLES r on u.idRol = r.id
-		left join DETALLESROLES
-		d on r.id = d.idRol
-		left join PERMISOS p on p.id = d.idPermiso
 		left join
 		CLIENTES c on c.idUsuario = u.id
 		WHERE u.id=#{id}
@@ -167,9 +160,13 @@
 	</update>
 
 	<delete id="deleteByNombreUsuario">
-		delete from USUARIOS where nombreUsuario =
-		#{nombreUsuario}
-	</delete>
+	UPDATE Usuarios SET Usuarios.isEliminado = 1
+		where nombreUsuario =
+		#{nombreUsuario};
+		
+		UPDATE Clientes SET Clientes.isEliminado = 1 WHERE Clientes.idUsuario =	(select id from Usuarios u where i.nombreUsuario = #{nombreUsuario}  );
+	
+		</delete>
 
 	<delete id="deleteById">
 		UPDATE Usuarios SET Usuarios.isEliminado = 1
