@@ -56,20 +56,20 @@ public class ViajeController {
 	}
 	
 	@GetMapping("/anyChoferHaveViajeInProcess/{id}")
-	public MessageBean anyChoferHaveViajeInProcess(@PathVariable int id) {
-		Boolean nose =  this.viajeMapper.anyChoferHaveViajeInProcess(id);
-		return new MessageBean(nose);
+	public boolean anyChoferHaveViajeInProcess(@PathVariable int id) {
+		
+		return  this.viajeMapper.anyChoferHaveViajeInProcess(id);
 	}
 	
 	@GetMapping("/anyClienteHaveViajeInProcess/{id}")
-	public MessageBean anyClienteHaveViajeInProcess(@PathVariable int id) {
-		Boolean nose =  this.viajeMapper.anyClienteHaveViajeInProcess(id);
-		return new MessageBean(nose);
+	public boolean anyClienteHaveViajeInProcess(@PathVariable int id) {
+		return this.viajeMapper.anyClienteHaveViajeInProcess(id);
 	}
 	
-	@PatchMapping
-	public List<ViajeBean> selectViajesByRangeDt(@RequestBody Date desde, Date hasta ) {
-		return this.viajeMapper.selectViajesByRangeDt(desde,hasta);
+	@PutMapping()
+	public ViajeBean updateById(@RequestBody ViajeBean viaje) {
+		 this.viajeMapper.updateById(viaje);
+		 return this.getById(viaje.getId());
 	}
 
 	@PostMapping
@@ -77,15 +77,16 @@ public class ViajeController {
 		return this.viajeMapper.insert(viaje);
 	}
 
-	@PutMapping
-	public ViajeBean updateById(@RequestBody ViajeBean viaje) {
+	@PatchMapping
+	public boolean updateByIdWithReturn(@RequestBody ViajeBean viaje) {
 		 this.viajeMapper.updateById(viaje);
-		 return this.getById(viaje.getId());
+		 return true;
 	}
 	
 	@DeleteMapping("/{nombreUsuario}")
-	public void de(@PathVariable int id) {
+	public boolean de(@PathVariable int id) {
 		this.viajeMapper.deleteById(id);
+		return true;
 	}
 
 }

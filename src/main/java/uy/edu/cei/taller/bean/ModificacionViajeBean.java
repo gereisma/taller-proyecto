@@ -9,7 +9,7 @@ public class ModificacionViajeBean {
 	private String descripcion;
 	private int idUsuarioMod;
 	private int idViaje;
-	private boolean isEliminado;
+	private Boolean isEliminado;
 
 	private UsuarioBean Usuarios;
 	private ViajeBean Viajes;

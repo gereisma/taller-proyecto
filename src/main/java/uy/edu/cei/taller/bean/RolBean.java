@@ -6,15 +6,15 @@ public class RolBean {
 
 	private int id;
 	private String rol;	
-	private List<PermisoBean> permisos;
-	private UsuarioBean usuario;
+	private List<PermisoBean> Permisos;
+	private List<UsuarioBean> Usuarios;
 	
-	public UsuarioBean getUsuario() {
-		return usuario;
+	public List<UsuarioBean> getUsuario() {
+		return Usuarios;
 	}
 
-	public void setUsuario(UsuarioBean usuario) {
-		this.usuario = usuario;
+	public void setUsuario(List<UsuarioBean> Usuarios) {
+		this.Usuarios = Usuarios;
 	}
 
 	public int getId() {
@@ -34,11 +34,11 @@ public class RolBean {
 	}
 
 	public List<PermisoBean> getPermisos() {
-		return permisos;
+		return Permisos;
 	}
 
 	public void setPermisos(List<PermisoBean> permisos) {
-		this.permisos = permisos;
+		this.Permisos = permisos;
 	}
 
 }

@@ -17,16 +17,16 @@
 		<result property="connId" column="connId" />
 		<result property="isEliminado" column="isEliminado" />
 
-		<association property="Roles"
+		<association property="Rol"
 			javaType="uy.edu.cei.taller.bean.RolBean">
 			<id property="id" column="idRol" />
 			<result property="rol" column="rol" />
-			<collection property="permisos" column="idRol"
+			<collection property="Permisos" column="idRol"
 				ofType="uy.edu.cei.taller.bean.PermisoBean"
 				select="selectPermisosByIdRol" />
 		</association>
 
-		<association property="Clientes"
+		<association property="Cliente"
 			javaType="uy.edu.cei.taller.bean.ClienteBean">
 			<id property="idUsuario" column="idUsuario" />
 			<result property="documento" column="documento" />
@@ -34,10 +34,9 @@
 			<result property="apellido" column="apellido" />
 			<result property="telefono" column="telefono" />
 			<result property="isEliminado" column="isEliminado" />
-			<collection property="direcciones" column="idUsuario"
+			<collection property="Direcciones" column="idUsuario"
 				ofType="uy.edu.cei.taller.bean.DireccionBean"
 				select="selectDireccionesByIdUsuario" />
-
 
 		</association>
 
@@ -145,26 +144,26 @@
 			<if test="usuario.ubicacion!=null and usuario.ubicacion!='' ">
 				ubicacion = #{usuario.ubicacion},
 			</if>
-			<if test="usuario.activo!=null and usuario.activo!='' ">
+			<if test="usuario.activo!=null">
 				activo = #{usuario.activo},
 			</if>
 			<if test="usuario.valoracion!=null and usuario.valoracion!='' ">
 				valoracion = #{usuario.valoracion},
 			</if>
-			<if test="usuario.verificado!=null and usuario.verificado!='' ">
+			<if test="usuario.verificado!=null ">
 				verificado = #{usuario.verificado},
 			</if>
 			<if test="usuario.connId!=null and usuario.connId!='' ">
 				connId = #{usuario.connId},
 			</if>
-			<if test="usuario.isEliminado!=null and usuario.isEliminado!='' ">
+			<if test="usuario.isEliminado!=null">
 				isEliminado = #{usuario.isEliminado},
 			</if>
 			<if test="usuario.ubicacion!=null and usuario.ubicacion!='' ">
 				ubicacion = #{usuario.ubicacion}
 			</if>
 		</set>
-		WHERE id = #{usuario.id} or nombreUsuario = #{usuario.nombreUsuario};
+		WHERE id=#{usuario.id} or nombreUsuario = #{usuario.nombreUsuario};
 	</update>
 
 	<delete id="deleteByNombreUsuario">
@@ -177,9 +176,7 @@
 		WHERE id
 		= #{id};
 
-		IF EXISTS(SELECT * FROM Clientes c WHERE c.idUsuario =#{id};)
-		UPDATE Clientes SET Clientes.isEliminado =0 WHERE Clientes.idUsuario =
-		#{id};
+		UPDATE Clientes SET Clientes.isEliminado = 1 WHERE Clientes.idUsuario =	#{id};
 
 	</delete>
 

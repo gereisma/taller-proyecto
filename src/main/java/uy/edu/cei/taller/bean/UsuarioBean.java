@@ -7,23 +7,23 @@ public class UsuarioBean {
 	private String email;
 	private String contraseña;
 	private String ubicacion;
-	private boolean activo;
+	private Boolean activo;
 	private int idRol;
 	private int valoracion;
-	private boolean verificado;
+	private Boolean verificado;
 	private String connId;
-	private boolean isEliminado;
+	private Boolean isEliminado;
 
-	private RolBean Roles;
+	private RolBean Rol;
 	
-	private ClienteBean Clientes;
+	private ClienteBean Cliente;
 
-	public RolBean getRoles() {
-		return Roles;
+	public RolBean getRol() {
+		return Rol;
 	}
 
-	public void setRoles(RolBean roles) {
-		this.Roles = roles;
+	public void setRol(RolBean roles) {
+		this.Rol = roles;
 	}
 
 	public long getId() {
@@ -114,12 +114,12 @@ public class UsuarioBean {
 		this.isEliminado = isEliminado;
 	}
 
-	public ClienteBean getClientes() {
-		return Clientes;
+	public ClienteBean getCliente() {
+		return Cliente;
 	}
 
-	public void setClientes(ClienteBean clientes) {
-		Clientes = clientes;
+	public void setClientes(ClienteBean cliente) {
+		Cliente = cliente;
 	}
 
 }

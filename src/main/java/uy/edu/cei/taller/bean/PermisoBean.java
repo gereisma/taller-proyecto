@@ -7,7 +7,7 @@ public class PermisoBean {
 	private int id;
 	private String nombre;
 	
-	private List<RolBean> roles;
+	private List<RolBean> Roles;
 
 	public int getId() {
 		return id;
@@ -26,10 +26,10 @@ public class PermisoBean {
 	}
 
 	public List<RolBean> getRoles() {
-		return roles;
+		return Roles;
 	}
 
 	public void setRoles(List<RolBean> roles) {
-		this.roles = roles;
+		this.Roles = roles;
 	}
 }

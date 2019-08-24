@@ -10,7 +10,7 @@ public class ClienteBean {
 	private String nombre;
 	private String apellido;
 	private String telefono;
-	private boolean isEliminado;
+	private Boolean isEliminado;
 	private Date dtNacimiento;
 	private UsuarioBean Usuario;
 	private List<ViajeBean> Viajes;

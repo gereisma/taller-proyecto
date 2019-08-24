@@ -20,7 +20,7 @@ public class ViajeBean {
 	private Integer idUsuarioMod;
 	private Date dtReserva;
 	private Integer idViaje2;
-	private boolean isEliminado;
+	private Boolean isEliminado;
 	
 	private ClienteBean Cliente;
 	private List<ModificacionViajeBean> ModificacionesViajes;
