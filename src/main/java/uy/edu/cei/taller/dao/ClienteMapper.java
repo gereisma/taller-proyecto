@@ -12,8 +12,6 @@ public interface ClienteMapper {
 
 	public List<ClienteBean> selectAll();
 
-	public ClienteBean selectByNombreCliente(@Param("nombre") String nombre);
-
 	public ClienteBean selectById(@Param("id") long id);
 
 	public void insert(@Param("cliente") ClienteBean cliente);
@@ -21,7 +19,5 @@ public interface ClienteMapper {
 	public void updateByIdOrNombreCliente(@Param("cliente") ClienteBean cliente);
 
 	public void deleteById(@Param("id") int id);
-
-	public void deleteByNombre(String nombre);
 
 }

@@ -22,8 +22,6 @@ public class ClienteController {
 	
 	private final ClienteMapper clienteMapper ;
 
-	
-	
 	@Autowired
 	public ClienteController(final ClienteMapper ClienteMapper, ClienteMapper clienteMapper) {
 		this.clienteMapper = clienteMapper;
@@ -33,10 +31,6 @@ public class ClienteController {
 	@GetMapping()
 	public List<ClienteBean> getAll() {
 		return this.clienteMapper.selectAll();
-	}
-	@GetMapping("/{nombre}")
-	public ClienteBean getByNombreCliente(@PathVariable String nombre) {
-		return this.clienteMapper.selectByNombreCliente(nombre);
 	}
 
 	@GetMapping("id")
@@ -49,9 +43,9 @@ public class ClienteController {
 		this.clienteMapper.insert(cliente);
 	}
 
-	@DeleteMapping("/{nombre}")
-	public void de(@PathVariable String nombre) {
-		this.clienteMapper.deleteByNombre(nombre);
+	@DeleteMapping("/{id}")
+	public void de(@PathVariable int id) {
+		this.clienteMapper.deleteById(id);
 	}
 
 

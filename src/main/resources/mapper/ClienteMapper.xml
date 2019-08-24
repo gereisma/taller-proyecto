@@ -44,18 +44,13 @@
 	<select id="selectAll" resultMap="OneClienteMap">
 		SELECT * FROM CLIENTES
 	</select>
-	<select id="selectByNombreCliente" resultMap="OneClienteMap">
-		SELECT * FROM
-		CLIENTES c WHERE c.nombre=#{nombre}
-		left join USUARIOS u on c.idUsuario
-		= u.id
-
-	</select>
-
+	
 	<select id="selectById" resultMap="OneClienteMap">
 		SELECT * FROM CLIENTES WHERE
 		idUsuario=#{idUsuario}
 	</select>
+
+
 
 	<insert id="insert">
 		insert into CLIENTES
@@ -66,6 +61,8 @@
 
 	</insert>
 
+
+<!-- 	terminar o test -->
 	<update id="updateByIdOrNombreCliente">
 		UPDATE CLIENTES
 		<set>
@@ -84,26 +81,26 @@
 			<if test="cliente.telefono!=null and cliente.telefono!='' ">
 				telefono = #{cliente.telefono},
 			</if>
+			<if test="cliente.dtNacimiento!=null and cliente.dtNacimiento!='' ">
+				dtNacimiento = #{cliente.dtNacimiento},
+			</if>
 			<if test="cliente.isEliminado!=null and cliente.isEliminado!='' ">
 				isEliminado = #{cliente.isEliminado},
 			</if>
 
 
 		</set>
-		WHERE idUsuario = #{cliente.idUsuario} or nombre = #{cliente.nombre};
+		WHERE idUsuario = #{cliente.idUsuario} 
 	</update>
 
+<!-- test -->
 	<delete id="deleteById">
-		SELECT * FROM Clientes c WHERE c.idUsuario =#{id};)
-		UPDATE Clientes SET Clientes.isEliminado =0 WHERE Clientes.idUsuario =
-		#{id};
+		
+		UPDATE CLIENTES SET isEliminado = 1 WHERE idUsuario = #{id};
 
 	</delete>
 
-	<delete id="deleteByNombre">
-		delete from CLIENTES where nombre = #{nombreUsuario}
-
-	</delete>
+	
 
 
 </mapper>

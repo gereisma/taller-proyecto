@@ -32,9 +32,9 @@ public class DireccionController {
 		
 	}
 	
-	@GetMapping("id")
-	public DireccionBean getByIdUsuario(@RequestParam(value = "idUsuario", required = true) long idUsuario) {
-		return this.direccionMapper.selectByidUsuario(idUsuario);
+	@GetMapping("/{id}")
+	public DireccionBean getByIdUsuario(@PathVariable long id) {
+		return this.direccionMapper.selectByidUsuario(id);
 	}
 	@PostMapping
 	public boolean save(@RequestBody DireccionBean direccion) {
@@ -42,8 +42,9 @@ public class DireccionController {
 		return true;
 	}
 	@DeleteMapping("/{idUsuario}")
-	public void de(@PathVariable long idUsuario) {
+	public boolean de(@PathVariable long idUsuario) {
 		this.direccionMapper.deleteByIdUsuario(idUsuario);
+		return true;
 	}
 
 }
