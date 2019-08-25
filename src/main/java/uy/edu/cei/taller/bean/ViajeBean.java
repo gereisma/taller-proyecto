@@ -5,21 +5,21 @@ import java.util.List;
 
 public class ViajeBean {
 
-	private Integer id;
+	private int id;
 	private Date dtEmision;
 	private String estado;
-	private Integer valoracionCliente;
-	private Integer valoracionChofer;
+	private Long valoracionCliente;
+	private Long valoracionChofer;
 	private double precioFinal;
 	private String telefonoCliente;
 	private String origen;
 	private String destino;
-	private Double cantKm;
-	private Integer idChofer;
-	private Integer idCliente;
-	private Integer idUsuarioMod;
+	private double cantKm;
+	private Long idChofer;
+	private Long idCliente;
+	private Long idUsuarioMod;
 	private Date dtReserva;
-	private Integer idViaje2;
+	private Long idViaje2;
 	private Boolean isEliminado;
 	
 	private ClienteBean Cliente;
@@ -28,10 +28,10 @@ public class ViajeBean {
 	private ViajeBean Viaje2;
 	private RegistroViajeBean RegistroViaje;
 	
-	public Integer getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public Date getDtEmision() {
@@ -46,16 +46,16 @@ public class ViajeBean {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public Integer getValoracionCliente() {
+	public Long getValoracionCliente() {
 		return valoracionCliente;
 	}
-	public void setValoracionCliente(Integer valoracionCliente) {
+	public void setValoracionCliente(Long valoracionCliente) {
 		this.valoracionCliente = valoracionCliente;
 	}
-	public Integer getValoracionChofer() {
+	public Long getValoracionChofer() {
 		return valoracionChofer;
 	}
-	public void setValoracionChofer(Integer valoracionChofer) {
+	public void setValoracionChofer(Long valoracionChofer) {
 		this.valoracionChofer = valoracionChofer;
 	}
 	public double getPrecioFinal() {
@@ -82,28 +82,28 @@ public class ViajeBean {
 	public void setDestino(String destino) {
 		this.destino = destino;
 	}
-	public Double getCantKm() {
+	public double getCantKm() {
 		return cantKm;
 	}
-	public void setCantKm(Double cantKm) {
+	public void setCantKm(double cantKm) {
 		this.cantKm = cantKm;
 	}
-	public Integer getIdChofer() {
+	public Long getIdChofer() {
 		return idChofer;
 	}
-	public void setIdChofer(Integer idChofer) {
+	public void setIdChofer(Long idChofer) {
 		this.idChofer = idChofer;
 	}
-	public Integer getIdCliente() {
+	public Long getIdCliente() {
 		return idCliente;
 	}
-	public void setIdCliente(Integer idCliente) {
+	public void setIdCliente(Long idCliente) {
 		this.idCliente = idCliente;
 	}
-	public Integer getIdUsuarioMod() {
+	public Long getIdUsuarioMod() {
 		return idUsuarioMod;
 	}
-	public void setIdUsuarioMod(Integer idUsuarioMod) {
+	public void setIdUsuarioMod(Long idUsuarioMod) {
 		this.idUsuarioMod = idUsuarioMod;
 	}
 	public Date getDtReserva() {
@@ -112,17 +112,11 @@ public class ViajeBean {
 	public void setDtReserva(Date dtReserva) {
 		this.dtReserva = dtReserva;
 	}
-	public Integer getIdViaje2() {
+	public Long getIdViaje2() {
 		return idViaje2;
 	}
-	public void setIdViaje2(Integer idViaje2) {
+	public void setIdViaje2(Long idViaje2) {
 		this.idViaje2 = idViaje2;
-	}
-	public boolean isEliminado() {
-		return isEliminado;
-	}
-	public void setEliminado(boolean isEliminado) {
-		this.isEliminado = isEliminado;
 	}
 	public ClienteBean getCliente() {
 		return Cliente;
@@ -153,6 +147,12 @@ public class ViajeBean {
 	}
 	public void setRegistroViaje(RegistroViajeBean registroViaje) {
 		RegistroViaje = registroViaje;
+	}
+	public Boolean getIsEliminado() {
+		return isEliminado;
+	}
+	public void setIsEliminado(Boolean isEliminado) {
+		this.isEliminado = isEliminado;
 	}
 
 }

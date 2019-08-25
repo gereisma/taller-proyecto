@@ -39,8 +39,15 @@ public class ClienteController {
 	}
 
 	@PostMapping
-	public void save(@RequestBody ClienteBean cliente) {
+	public int save(@RequestBody ClienteBean cliente) {
 		this.clienteMapper.insert(cliente);
+		return 1;
+	}
+	
+	@PutMapping
+	public boolean update(@RequestBody ClienteBean cliente) {
+		this.clienteMapper.updateById(cliente);
+		return true;
 	}
 
 	@DeleteMapping("/{id}")

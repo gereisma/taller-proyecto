@@ -16,7 +16,7 @@ public interface ClienteMapper {
 
 	public void insert(@Param("cliente") ClienteBean cliente);
 
-	public void updateByIdOrNombreCliente(@Param("cliente") ClienteBean cliente);
+	public void updateById(@Param("cliente") ClienteBean cliente);
 
 	public void deleteById(@Param("id") int id);
 

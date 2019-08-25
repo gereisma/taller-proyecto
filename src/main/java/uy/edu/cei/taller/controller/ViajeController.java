@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uy.edu.cei.taller.bean.MessageBean;
 import uy.edu.cei.taller.bean.ViajeBean;
 import uy.edu.cei.taller.dao.ViajeMapper;
 
@@ -46,7 +45,8 @@ public class ViajeController {
 	}
 	@GetMapping("/selectViajesFinishOrCancelado")
 	public List<ViajeBean> selectViajesFinishOrCancelado() {
-		return this.viajeMapper.selectViajesForAssignViaje2();
+		return this.viajeMapper.selectViajesFinishOrCancelado();
+		
 	}
 	
 	@GetMapping("/selectViajesByCliente/{id}")
@@ -67,20 +67,27 @@ public class ViajeController {
 	}
 	
 	@PutMapping()
-	public ViajeBean updateById(@RequestBody ViajeBean viaje) {
+	public boolean updateById(@RequestBody ViajeBean viaje) {
 		 this.viajeMapper.updateById(viaje);
-		 return this.getById(viaje.getId());
+		 return true;
+		
 	}
 
 	@PostMapping
-	public long save(@RequestBody ViajeBean viaje) {
-		return this.viajeMapper.insert(viaje);
+	public int save(@RequestBody ViajeBean viaje) {
+		 this.viajeMapper.insert(viaje);
+		 return 0;
+		 
 	}
 
 	@PatchMapping
-	public boolean updateByIdWithReturn(@RequestBody ViajeBean viaje) {
-		 this.viajeMapper.updateById(viaje);
-		 return true;
+	public ViajeBean updateByIdWithReturn(@RequestBody ViajeBean viaje) {
+		this.viajeMapper.updateById(viaje);
+		 return this.getById(viaje.getId());
+	}
+	@PatchMapping("/selectViajesByRangeDt")
+	public List<ViajeBean> selectViajesByRangeDt(@RequestBody Date desde, Date hasta ) {
+		return this.viajeMapper.selectViajesByRangeDt(desde,hasta);
 	}
 	
 	@DeleteMapping("/{nombreUsuario}")

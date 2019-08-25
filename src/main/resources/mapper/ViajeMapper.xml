@@ -61,7 +61,7 @@
 
 	<select id="selectAll"
 		resultType="uy.edu.cei.taller.bean.ViajeBean">
-		SELECT * FROM VIAJES
+		SELECT * FROM VIAJES WHERE isEliminado = 0
 	</select>
 
 	<select id="selectById" resultMap="OneViajeMap">
@@ -95,16 +95,17 @@
 	</select>
 
 	<select id="selectViajesFinishOrCancelado"
-		resultType="uy.edu.cei.taller.bean.ViajeBean">
+		resultMap="OneViajeMap">
 
 		SELECT * FROM VIAJES w WHERE
-		w.isEliminado = 0 and (w.estado
-		= 'finalizado' or w.estado = 'cancelado')
+		w.isEliminado = 0 and w.estado
+		in ('finalizado','cancelado')
 
 	</select>
 
-	<select id="selectViajesByRangeDt" resultType="uy.edu.cei.taller.bean.ViajeBean">
-	 	select * from Viajes v where v.dtEmision between #{desde} and #{hasta}
+	<select id="selectViajesByRangeDt"
+		resultType="uy.edu.cei.taller.bean.ViajeBean">
+		select * from Viajes v where v.dtEmision between #{desde} and #{hasta}
 	</select>
 
 	<select id="anyClienteHaveViajeInProcess" resultType="Boolean">
@@ -128,6 +129,27 @@
 		BIT) END
 
 	</select>
+	
+	
+	<select id="getIdByViaje"
+		resultType="int">
+		select v.id from Viajes v where 
+			v.dtEmision = #{viaje.dtEmision} and
+			v.estado = #{viaje.estado} and
+			v.valoracionCliente = #{viaje.valoracionCliente} and
+			v.valoracionChofer = #{viaje.valoracionChofer} and
+			v.precioFinal = #{viaje.precioFinal} and
+			v.telefonoCliente = #{viaje.telefonoCliente} and
+			v.origen = #{viaje.origen} and
+			v.destino = #{viaje.destino}and
+			v.cantKm = #{viaje.cantKm} and
+			v.idChofer = #{viaje.idChofer} and
+			v.idCliente = #{viaje.idCliente} and
+			v.idUsuarioMod = #{viaje.idUsuarioMod} and
+			v.dtReserva = #{viaje.dtReserva} and
+			v.idViaje2 = #{viaje.idViaje2} and
+			v.isEliminado = #{viaje.isEliminado}
+	</select>
 
 	<!-- <select id="selectPermisosByIdRol" -->
 	<!-- resultType="uy.edu.cei.taller.bean.PermisoBean"> -->
@@ -135,12 +157,10 @@
 	<!-- FROM DETALLESROLES d WHERE d.idRol = #{id}) -->
 	<!-- </select> -->
 
-
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id"
-		keyColumn="id">
+	<insert id="insert">
 		insert into VIAJES
 		(dtEmision,estado,valoracionCliente,valoracionChofer,precioFinal,telefonoCliente,origen,
-		destino,cantKm,idChofer,idCliente,idUsuarioMod,dtReserva,idViaje2,isEliminado)
+		destino,cantKm,idChofer,idCliente,idUsuarioMod,dtReserva,idViaje2)
 		VALUES
 		(
 		#{viaje.dtEmision}
@@ -157,7 +177,6 @@
 		,#{viaje.idUsuarioMod}
 		,#{viaje.dtReserva}
 		,#{viaje.idViaje2}
-		,#{viaje.isEliminado}
 		)
 
 	</insert>
@@ -210,13 +229,12 @@
 			<if test="viaje.idViaje2!=null and viaje.idViaje2!='' ">
 				idViaje2 = #{viaje.idViaje2},
 			</if>
-			<if test="viaje.isEliminado!=null and viaje.isEliminado!='' ">
+			<if test="viaje.isEliminado!=null">
 				isEliminado = #{viaje.isEliminado}
 			</if>
 		</set>
 		WHERE id = #{viaje.id}
 	</update>
-
 
 	<delete id="deleteById">
 

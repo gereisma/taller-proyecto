@@ -26,7 +26,7 @@
 			<result property="connId" column="connId" />
 			<result property="isEliminado" column="isEliminado" />
 		</association>
-		
+
 		<collection property="Direcciones" column="idUsuario"
 			ofType="uy.edu.cei.taller.bean.DireccionBean"
 			select="selectDireccionesByidUsuario" />
@@ -44,26 +44,22 @@
 	<select id="selectAll" resultMap="OneClienteMap">
 		SELECT * FROM CLIENTES
 	</select>
-	
+
 	<select id="selectById" resultMap="OneClienteMap">
 		SELECT * FROM CLIENTES WHERE
 		idUsuario=#{idUsuario}
 	</select>
-
-
 
 	<insert id="insert">
 		insert into CLIENTES
 		(idUsuario,documento,nombre,apellido,telefono,dtNacimiento)
 		values
 		(#{cliente.idUsuario},#{cliente.documento},#{cliente.nombre},#{cliente.apellido},#{cliente.telefono},#{cliente.dtNacimiento})
-		
+
 
 	</insert>
 
-
-<!-- 	terminar o test -->
-	<update id="updateByIdOrNombreCliente">
+	<update id="updateById">
 		UPDATE CLIENTES
 		<set>
 			<if test="cliente.idUsuario!=null and cliente.idUsuario!='' ">
@@ -81,26 +77,27 @@
 			<if test="cliente.telefono!=null and cliente.telefono!='' ">
 				telefono = #{cliente.telefono},
 			</if>
-			<if test="cliente.dtNacimiento!=null and cliente.dtNacimiento!='' ">
+			<if
+				test="cliente.dtNacimiento!=null ">
 				dtNacimiento = #{cliente.dtNacimiento},
 			</if>
-			<if test="cliente.isEliminado!=null and cliente.isEliminado!='' ">
+			<if test="cliente.isEliminado!=null ">
 				isEliminado = #{cliente.isEliminado},
 			</if>
 
 
 		</set>
-		WHERE idUsuario = #{cliente.idUsuario} 
+		WHERE idUsuario = #{cliente.idUsuario}
 	</update>
 
-<!-- test -->
+	<!-- test -->
 	<delete id="deleteById">
-		
+
 		UPDATE CLIENTES SET isEliminado = 1 WHERE idUsuario = #{id};
 
 	</delete>
 
-	
+
 
 
 </mapper>

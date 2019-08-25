@@ -20,8 +20,9 @@ public interface ViajeMapper {
 	public Boolean anyChoferHaveViajeInProcess(@Param("id") int id);
 	public List<ViajeBean> selectViajesByRangeDt(@Param("desde") Date desde,@Param("hasta") Date hasta);
 	public ViajeBean selectById(@Param("id") int id);
-	public long insert(@Param("viaje") ViajeBean viaje);
+	public void insert(@Param("viaje") ViajeBean viaje);
 	public void updateById(@Param("viaje") ViajeBean viaje);
+	public int getIdByViaje(@Param("viaje") ViajeBean viaje);
 	public void deleteById(@Param("id") int id);	
 		
 }
