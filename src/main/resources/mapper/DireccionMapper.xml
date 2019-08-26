@@ -27,7 +27,7 @@
 
 	<delete id="deleteByIdUsuario">
 		UPDATE Direcciones SET Direcciones.isEliminado = 1
-		WHERE id = 0; #{idUsuario};
+		WHERE idUsuario = #{idUsuario};
 	</delete>
 	
 </mapper> 
