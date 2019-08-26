@@ -12,7 +12,7 @@ public interface DireccionMapper {
 		
 		public void deleteByIdUsuario(@Param("idUsuario") long idUsuario);
 
-		void insert(DireccionBean direccion);
+		void insert(@Param("direccion")DireccionBean direccion);
 
 		
 

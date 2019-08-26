@@ -10,9 +10,9 @@
 
 	<insert id="insert">
 		insert into DIRECCIONES
-		(ubicacion,nombre,descripcion,idUsuario)
+		(nombre,ubicacion,descripcion,idUsuario)
 		values
-		(#{direccion.ubicacion},#{direccion.nombre},#{direccion.descripcion},#{direccion.idUsuario})
+		(#{direccion.nombre},#{direccion.ubicacion},#{direccion.descripcion},#{direccion.idUsuario})
 	</insert>
 
 	<delete id="deleteByIdUsuario">
