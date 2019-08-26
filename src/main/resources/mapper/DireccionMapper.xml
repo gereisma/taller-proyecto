@@ -3,13 +3,23 @@
 
 <mapper namespace="uy.edu.cei.taller.dao.DireccionMapper">
 
+<resultMap id="OneDireccionMap"
+		type="uy.edu.cei.taller.bean.DireccionBean">
+		<id property="id" column="id" />
+		<result property="nombre" column="nombre" />
+		<result property="ubicacion" column="ubicacion" />
+		<result property="descripcion" column="descripcion" />
+		<result property="isEliminado" column="isEliminado" />
+		
+</resultMap>
+
 	<select id="selectByidUsuario"
 		resultType="uy.edu.cei.taller.bean.DireccionBean">
 		SELECT * FROM DIRECCIONES WHERE isEliminado=0 AND idUsuario=#{idUsuario}
 	</select>
 
 	<insert id="insert">
-		insert into DIRECCIONES
+		insert into Direcciones
 		(nombre,ubicacion,descripcion,idUsuario)
 		values
 		(#{direccion.nombre},#{direccion.ubicacion},#{direccion.descripcion},#{direccion.idUsuario})

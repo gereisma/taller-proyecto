@@ -39,7 +39,7 @@ public class DireccionController {
 	}
 	
 	@PostMapping
-	public boolean save(@Param("Direccion") DireccionBean direccion) {
+	public boolean save(@RequestBody DireccionBean direccion) {
 		this.direccionMapper.insert(direccion);
 		return true;
 	}
