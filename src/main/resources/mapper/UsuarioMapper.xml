@@ -143,18 +143,16 @@
 			<if test="usuario.valoracion!=null and usuario.valoracion!='' ">
 				valoracion = #{usuario.valoracion},
 			</if>
-			<if test="usuario.verificado!=null ">
+			<if test="usuario.verificado!=null">
 				verificado = #{usuario.verificado},
 			</if>
-			<if test="usuario.connId!=null and usuario.connId!='' ">
+			<if test="usuario.connId!=null and usuario.connId!=''">
 				connId = #{usuario.connId},
 			</if>
 			<if test="usuario.isEliminado!=null">
-				isEliminado = #{usuario.isEliminado},
+				isEliminado = #{usuario.isEliminado}
 			</if>
-			<if test="usuario.ubicacion!=null and usuario.ubicacion!='' ">
-				ubicacion = #{usuario.ubicacion}
-			</if>
+			
 		</set>
 		WHERE id=#{usuario.id} or nombreUsuario = #{usuario.nombreUsuario};
 	</update>
